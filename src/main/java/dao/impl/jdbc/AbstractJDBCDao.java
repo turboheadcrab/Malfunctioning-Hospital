@@ -1,10 +1,5 @@
 package dao.impl.jdbc;
 
-import dao.DaoFactory;
-import dao.GenericDao;
-import dao.Identifiable;
-import dao.PersistException;
-
 import java.io.Serializable;
 import java.sql.*;
 import java.util.List;

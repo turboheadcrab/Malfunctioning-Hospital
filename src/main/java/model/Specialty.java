@@ -1,11 +1,9 @@
 package model;
 
-import dao.Identifiable;
-
 /**
  * Created by Apraxin Vladimir on 15.12.16.
  */
-public class Specialty implements Identifiable<Long> {
+public class Specialty {
 
     private final Long id;
     private final String name;
@@ -35,8 +33,7 @@ public class Specialty implements Identifiable<Long> {
         this.name = builder.name;
     }
 
-    @Override
-    public Long getPrimaryKey() {
+    public Long getId() {
         return id;
     }
     public String getName() {

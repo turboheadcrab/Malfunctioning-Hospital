@@ -1,11 +1,9 @@
 package model;
 
-import dao.Identifiable;
-
 /**
  * Created by Apraxin Vladimir on 15.12.16.
  */
-public class User implements Identifiable<String> {
+public class User {
 
     private final String username;
     private final String password;
@@ -63,8 +61,7 @@ public class User implements Identifiable<String> {
         this.healthInsurance = builder.healthInsurance;
     }
 
-    @Override
-    public String getPrimaryKey() {
+    public String getUsername() {
         return username;
     }
     public String getPassword() {

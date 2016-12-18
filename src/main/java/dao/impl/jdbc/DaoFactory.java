@@ -1,4 +1,4 @@
-package dao;
+package dao.impl.jdbc;
 
 /**
  * Фабрика объектов для работы с базой данных

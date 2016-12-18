@@ -1,4 +1,4 @@
-package dao;
+package dao.impl.jdbc;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
