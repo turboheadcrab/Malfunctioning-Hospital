@@ -1,11 +1,13 @@
 package model;
 
+import dao.Identifiable;
+
 /**
  * Created by Apraxin Vladimir on 15.12.16.
  */
-public class Doctor {
+public class Doctor implements Identifiable<Long> {
 
-    private final long id;
+    private final Long id;
     private final String lastName;
     private final String firstName;
     private final String patronymic;
@@ -13,13 +15,13 @@ public class Doctor {
 
     public class Builder {
 
-        private long id;
+        private Long id;
         private String lastName;
         private String firstName;
         private String patronymic;
         private Specialty specialty;
 
-        public Builder id(long id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
@@ -53,7 +55,8 @@ public class Doctor {
         this.specialty = builder.specialty;
     }
 
-    public long getId() {
+    @Override
+    public Long getPrimaryKey() {
         return id;
     }
     public String getLastName() {

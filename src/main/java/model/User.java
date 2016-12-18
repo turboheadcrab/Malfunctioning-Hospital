@@ -1,16 +1,18 @@
 package model;
 
+import dao.Identifiable;
+
 /**
  * Created by Apraxin Vladimir on 15.12.16.
  */
-public class User {
+public class User implements Identifiable<String> {
 
     private final String username;
     private final String password;
     private final String lastName;
     private final String firstName;
     private final String patronymic;
-    private final String snils;
+    private final String healthInsurance;
 
     public static class Builder {
 
@@ -41,8 +43,8 @@ public class User {
             this.patronymic = patronymic;
             return this;
         }
-        public Builder snils(String snils) {
-            this.healthInsurance = snils;
+        public Builder healthInsurance(String healthInsurance) {
+            this.healthInsurance = healthInsurance;
             return this;
         }
 
@@ -58,10 +60,11 @@ public class User {
         this.lastName = builder.lastName;
         this.firstName = builder.firstName;
         this.patronymic = builder.patronymic;
-        this.snils = builder.healthInsurance;
+        this.healthInsurance = builder.healthInsurance;
     }
 
-    public String getUsername() {
+    @Override
+    public String getPrimaryKey() {
         return username;
     }
     public String getPassword() {
@@ -76,7 +79,7 @@ public class User {
     public String getPatronymic() {
         return patronymic;
     }
-    public String getSnils() {
-        return snils;
+    public String getHealthInsurance() {
+        return healthInsurance;
     }
 }

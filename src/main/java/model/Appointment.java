@@ -1,13 +1,15 @@
 package model;
 
+import dao.Identifiable;
+
 import java.time.LocalDate;
 
 /**
  * Created by Apraxin Vladimir on 15.12.16.
  */
-public class Appointment {
+public class Appointment implements Identifiable<Long> {
 
-    private final long id;
+    private final Long id;
     private final User user;
     private final Doctor doctor;
     private final int roomNumber;
@@ -16,14 +18,14 @@ public class Appointment {
 
     public class Builder {
 
-        private long id;
+        private Long id;
         private User user;
         private Doctor doctor;
         private int roomNumber;
         private LocalDate fromDate;
         private LocalDate toDate;
 
-        public Builder id(long id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
@@ -63,7 +65,8 @@ public class Appointment {
         this.toDate = builder.toDate;
     }
 
-    public long getId() {
+    @Override
+    public Long getPrimaryKey() {
         return id;
     }
     public User getUser() {
