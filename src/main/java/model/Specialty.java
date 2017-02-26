@@ -1,42 +1,73 @@
 package model;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * Created by Apraxin Vladimir on 15.12.16.
+ * POJO специальности врача
  */
-public class Specialty {
 
-    private final Long id;
-    private final String name;
+@Entity
+@Table(name = "specialties")
+public class Specialty implements Serializable {
 
-    public class Builder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "specialty_id", unique = true, nullable = false)
+    private Integer specialtyId;
 
-        private Long id;
-        private String name;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
 
-        public Builder id(long id) {
-            this.id = id;
-            return this;
-        }
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "specialty")
+    private Set<Doctor> doctors = new HashSet<>(0);
 
-
-        public Specialty build() {
-            return new Specialty(this);
-        }
+    public Specialty() {
     }
 
-    private Specialty(Builder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
+    public Specialty(Integer specialtyId, String name) {
+        this.specialtyId = specialtyId;
+        this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public Specialty(Integer specialtyId, String name, Set<Doctor> doctors) {
+        this.specialtyId = specialtyId;
+        this.name = name;
+        this.doctors = doctors;
     }
+
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<Doctor> doctors) {
+        this.doctors = doctors;
+    }
+
+    @Override
+    public String toString() {
+        return "Specialty{" +
+                "specialtyId=" + getSpecialtyId() +
+                ", name='" + getName() + '\'' +
+                ", doctors=" + getDoctors() +
+                '}';
     }
 }

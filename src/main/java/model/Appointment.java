@@ -1,84 +1,109 @@
 package model;
 
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * Created by Apraxin Vladimir on 15.12.16.
+ * POJO приёма пациента у врача
  */
-public class Appointment {
 
-    private final long id;
-    private final User user;
-    private final Doctor doctor;
-    private final int roomNumber;
-    private final LocalDate fromDate;
-    private final LocalDate toDate;
+@Entity
+@Table(name = "appointments")
+public class Appointment implements Serializable {
 
-    public class Builder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appointment_id", unique = true, nullable = false)
+    private Integer appointmentId;
 
-        private long id;
-        private User user;
-        private Doctor doctor;
-        private int roomNumber;
-        private LocalDate fromDate;
-        private LocalDate toDate;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
-        public Builder id(long id) {
-            this.id = id;
-            return this;
-        }
-        public Builder user(User user) {
-            this.user = user;
-            return this;
-        }
-        public Builder doctor(Doctor doctor) {
-            this.doctor = doctor;
-            return this;
-        }
-        public Builder roomNumber(int roomNumber) {
-            this.roomNumber = roomNumber;
-            return this;
-        }
-        public Builder fromDate(LocalDate fromDate) {
-            this.fromDate = fromDate;
-            return this;
-        }
-        public Builder toDate(LocalDate toDate) {
-            this.toDate = toDate;
-            return this;
-        }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
 
+    @Column(name = "room_number", nullable = false)
+    private Integer roomNumber;
 
-        public Appointment build() {
-            return new Appointment(this);
-        }
+    @Column(name = "from_date_time")
+    private LocalDateTime fromDateTime;
+
+    @Column(name = "to_date_time")
+    private LocalDateTime toDateTime;
+
+    public Appointment() {
     }
 
-    private Appointment(Builder builder) {
-        this.id = builder.id;
-        this.user = builder.user;
-        this.doctor = builder.doctor;
-        this.roomNumber = builder.roomNumber;
-        this.fromDate = builder.fromDate;
-        this.toDate = builder.toDate;
+    public Appointment(Integer appointmentId, Client client, Doctor doctor, Integer roomNumber, LocalDateTime fromDateTime,
+                       LocalDateTime toDateTime) {
+        this.appointmentId = appointmentId;
+        this.client = client;
+        this.doctor = doctor;
+        this.roomNumber = roomNumber;
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
     }
 
-    public long getId() {
-        return id;
+    public Integer getAppointmentId() {
+        return appointmentId;
     }
-    public User getUser() {
-        return user;
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public Doctor getDoctor() {
         return doctor;
     }
-    public int getRoomNumber() {
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Integer getRoomNumber() {
         return roomNumber;
     }
-    public LocalDate getFromDate() {
-        return fromDate;
+
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
     }
-    public LocalDate getToDate() {
-        return toDate;
+
+    public LocalDateTime getFromDateTime() {
+        return fromDateTime;
+    }
+
+    public void setFromDateTime(LocalDateTime fromDate) {
+        this.fromDateTime = fromDate;
+    }
+
+    public LocalDateTime getToDateTime() {
+        return toDateTime;
+    }
+
+    public void setToDateTime(LocalDateTime toDate) {
+        this.toDateTime = toDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentId=" + getAppointmentId() +
+                ", client=" + getClient() +
+                ", doctor=" + getDoctor() +
+                ", roomNumber=" + getRoomNumber() +
+                ", fromDateTime=" + getFromDateTime() +
+                ", toDateTime=" + getToDateTime() +
+                '}';
     }
 }

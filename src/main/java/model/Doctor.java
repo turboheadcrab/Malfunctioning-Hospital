@@ -1,71 +1,117 @@
 package model;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * Created by Apraxin Vladimir on 15.12.16.
+ * POJO врача
  */
-public class Doctor {
 
-    private final long id;
-    private final String lastName;
-    private final String firstName;
-    private final String patronymic;
-    private final Specialty specialty;
+@Entity
+@Table(name = "doctors")
+public class Doctor implements Serializable {
 
-    public class Builder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "doctor_id", unique = true, nullable = false)
+    private Integer doctorId;
 
-        private long id;
-        private String lastName;
-        private String firstName;
-        private String patronymic;
-        private Specialty specialty;
+    @Column(name = "last_name", nullable = false, length = 50)
+    private String lastName;
 
-        public Builder id(long id) {
-            this.id = id;
-            return this;
-        }
-        public Builder lastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-        public Builder firstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-        public Builder patronymic(String patronymic) {
-            this.patronymic = patronymic;
-            return this;
-        }
-        public Builder specialty(Specialty specialty) {
-            this.specialty = specialty;
-            return this;
-        }
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String firstName;
 
-        public Doctor build() {
-            return new Doctor(this);
-        }
+    @Column(name = "patronymic", nullable = false, length = 50)
+    private String patronymic;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "specialty_id", nullable = false)
+    private Specialty specialty;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
+    private Set<Appointment> appointments = new HashSet<>(0);
+
+    public Doctor() {
     }
 
-    private Doctor(Builder builder) {
-        this.id = builder.id;
-        this.lastName = builder.lastName;
-        this.firstName = builder.firstName;
-        this.patronymic = builder.patronymic;
-        this.specialty = builder.specialty;
+    public Doctor(Integer doctorId, String lastName, String firstName, String patronymic, Specialty specialty) {
+        this.doctorId = doctorId;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.patronymic = patronymic;
+        this.specialty = specialty;
     }
 
-    public long getId() {
-        return id;
+    public Doctor(Integer doctorId, String lastName, String firstName, String patronymic, Specialty specialty,
+                  Set<Appointment> appointments) {
+        this.doctorId = doctorId;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.patronymic = patronymic;
+        this.specialty = specialty;
+        this.appointments = appointments;
     }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
     public String getLastName() {
         return lastName;
     }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getPatronymic() {
         return patronymic;
     }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
     public Specialty getSpecialty() {
         return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "doctorId=" + getDoctorId() +
+                ", lastName='" + getLastName() + '\'' +
+                ", firstName='" + getFirstName() + '\'' +
+                ", patronymic='" + getPatronymic() + '\'' +
+                ", specialty=" + getSpecialty() +
+                ", appointments=" + getAppointments() +
+                '}';
     }
 }
