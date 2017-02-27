@@ -42,28 +42,6 @@ public class Client implements Serializable {
     public Client() {
     }
 
-    public Client(String username, String password, String lastName, String firstName,
-                  String patronymic, String healthInsurance) {
-        this.username = username;
-        this.password = password;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.healthInsurance = healthInsurance;
-    }
-
-    public Client(Integer clientId, String username, String password, String lastName, String firstName,
-                  String patronymic, String healthInsurance, Set<Appointment> appointments) {
-        this.clientId = clientId;
-        this.username = username;
-        this.password = password;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.healthInsurance = healthInsurance;
-        this.appointments = appointments;
-    }
-
     public Integer getClientId() {
         return clientId;
     }

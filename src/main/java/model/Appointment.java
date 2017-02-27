@@ -37,16 +37,6 @@ public class Appointment implements Serializable {
     public Appointment() {
     }
 
-    public Appointment(Integer appointmentId, Client client, Doctor doctor, Integer roomNumber, LocalDateTime fromDateTime,
-                       LocalDateTime toDateTime) {
-        this.appointmentId = appointmentId;
-        this.client = client;
-        this.doctor = doctor;
-        this.roomNumber = roomNumber;
-        this.fromDateTime = fromDateTime;
-        this.toDateTime = toDateTime;
-    }
-
     public Integer getAppointmentId() {
         return appointmentId;
     }

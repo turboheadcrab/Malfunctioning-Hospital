@@ -37,24 +37,6 @@ public class Doctor implements Serializable {
     public Doctor() {
     }
 
-    public Doctor(Integer doctorId, String lastName, String firstName, String patronymic, Specialty specialty) {
-        this.doctorId = doctorId;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.specialty = specialty;
-    }
-
-    public Doctor(Integer doctorId, String lastName, String firstName, String patronymic, Specialty specialty,
-                  Set<Appointment> appointments) {
-        this.doctorId = doctorId;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
-        this.specialty = specialty;
-        this.appointments = appointments;
-    }
-
     public Integer getDoctorId() {
         return doctorId;
     }
